@@ -1,9 +1,27 @@
-import React from 'react'
+import React, { Fragment, Component } from 'react'
 import { connect } from 'react-redux'
 
-class Index extends React.Component {
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+
+class Index extends Component {
   render() {
-    return <p>oreno tango tyo application</p>
+    return (
+      <Fragment>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton color="inherit" aria-label="Menu" />
+            <Typography variant="title" color="inherit">
+              Oreno Tango Tyo
+            </Typography>
+            <Button color="inherit">Login</Button>
+          </Toolbar>
+        </AppBar>
+      </Fragment>
+    )
   }
 }
 
