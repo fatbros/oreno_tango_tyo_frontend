@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "prettier-standard",
+    "standard-react"
+  ],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "jsx-quotes": [
+      "error",
+      "prefer-double"
+    ],
+    "react/prop-types": [1, {
+      "ignore": ["children"]
+    }]
+  }
+}
