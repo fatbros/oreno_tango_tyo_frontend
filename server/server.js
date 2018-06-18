@@ -1,9 +1,19 @@
 const express = require('express')
 const next = require('next')
+const proxy = require('http-proxy-middleware')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
+
+const filter = function(pathname, req) {
+  return pathname.match('^/api') && req.method === 'POST'
+}
+
+const apiProxy = proxy(filter, {
+  target: 'http://python:5000',
+  changeOrigin: true
+})
 
 app
   .prepare()
@@ -11,6 +21,8 @@ app
     const server = express()
 
     server.use(express.static('public'))
+
+    server.use(apiProxy)
 
     server.get('*', (req, res) => {
       return handle(req, res)
