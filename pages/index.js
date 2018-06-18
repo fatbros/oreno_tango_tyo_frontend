@@ -7,7 +7,19 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 
+import { getRequestToken } from '../actions/twitter'
+
 class Index extends Component {
+  constructor(props) {
+    super(props)
+    this.click = this.click.bind(this)
+  }
+
+  click() {
+    const { dispatch } = this.props
+    dispatch(getRequestToken())
+  }
+
   render() {
     return (
       <Fragment>
@@ -17,7 +29,7 @@ class Index extends Component {
             <Typography variant="title" color="inherit">
               Oreno Tango Tyo
             </Typography>
-            <Button color="inherit">Login</Button>
+            <Button onClick={this.click} color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
       </Fragment>
