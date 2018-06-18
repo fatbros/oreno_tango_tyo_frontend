@@ -13,3 +13,10 @@ export const setRequestToken = requestToken => {
     payload: requestToken
   }
 }
+
+export const setOauthToken = query => {
+  return {
+    type: TWITTER.SET_OAUTH_TOKEN,
+    payload: query
+  }
+}
