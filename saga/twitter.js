@@ -2,7 +2,7 @@ import { take, call, put } from 'redux-saga/effects'
 
 import { TWITTER } from '../constants/twitter'
 
-import { setRequestToken } from '../actions/twitter'
+import { setRequestToken, setAccessToken } from '../actions/twitter'
 
 import axios from 'axios'
 
@@ -28,7 +28,8 @@ const getAccessTokenToAPI = async params => {
 
 export function* getAccessToken() {
   while (true) {
-    const takeAction = yield take(TWITTER.SET_OAUTH_TOKEN)
+    const takeAction = yield take(TWITTER.GET_ACCESS_TOKEN)
     const accessToken = yield call(getAccessTokenToAPI, takeAction.payload)
+    yield put(setAccessToken(accessToken))
   }
 }

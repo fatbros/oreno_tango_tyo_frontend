@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react'
 import { connect } from 'react-redux'
 
-import { setOauthToken } from '../../actions/twitter'
+import { getAccessToken } from '../../actions/twitter'
 
 class Authorized extends Component {
   static async getInitialProps({ ctx }) {
@@ -18,7 +18,7 @@ class Authorized extends Component {
   componentDidMount() {
     const { query, dispatch } = this.props
 
-    dispatch(setOauthToken(query))
+    dispatch(getAccessToken(query))
   }
 
   render() {

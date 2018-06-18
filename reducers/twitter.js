@@ -7,13 +7,13 @@ export default function twitter(state = {}, action) {
         ...state,
         requestToken: action.payload
       }
-    case TWITTER.SET_OAUTH_TOKEN:
-      const { oauth_token, oauth_verifier } = action.payload
+    case TWITTER.SET_ACCESS_TOKEN:
+      const { oauth_token, oauth_token_secret } = action.payload
 
       return {
         ...state,
         oauthToken: oauth_token,
-        oauthVerifier: oauth_verifier
+        oauthTokenSecret: oauth_token_secret
       }
     default:
       return state

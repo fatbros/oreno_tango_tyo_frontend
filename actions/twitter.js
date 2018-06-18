@@ -14,9 +14,16 @@ export const setRequestToken = requestToken => {
   }
 }
 
-export const setOauthToken = query => {
+export const getAccessToken = oauthToken => {
   return {
-    type: TWITTER.SET_OAUTH_TOKEN,
-    payload: query
+    type: TWITTER.GET_ACCESS_TOKEN,
+    payload: oauthToken
+  }
+}
+
+export const setAccessToken = accessToken => {
+  return {
+    type: TWITTER.SET_ACCESS_TOKEN,
+    payload: accessToken
   }
 }
