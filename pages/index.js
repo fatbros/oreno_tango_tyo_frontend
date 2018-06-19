@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-class Index extends React.Component {
+import CoreLayout from '../containers/CoreLayout'
+
+class Index extends Component {
   render() {
-    return <p>oreno tango tyo application</p>
+    return <CoreLayout>aaaa</CoreLayout>
   }
 }
 
