@@ -1,3 +1,5 @@
+import React from 'react'
+
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -11,7 +13,12 @@ const Header = props => (
       <Typography variant="title" color="inherit">
         Oreno Tango Tyo
       </Typography>
-      <Button onClick={props.loginBtnClick} color="inherit">Login</Button>
+      <Button
+        className="button-login"
+        onClick={props.loginBtnClick}
+        color="inherit">
+        Login
+      </Button>
     </Toolbar>
   </AppBar>
 )
