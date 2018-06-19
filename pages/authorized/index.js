@@ -1,7 +1,9 @@
-import React, { Fragment, Component } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { getAccessToken } from '../../actions/twitter'
+
+import CoreLayout from '../../containers/CoreLayout'
 
 class Authorized extends Component {
   static async getInitialProps({ ctx }) {
@@ -17,16 +19,11 @@ class Authorized extends Component {
 
   componentDidMount() {
     const { query, dispatch } = this.props
-
     dispatch(getAccessToken(query))
   }
 
   render() {
-    return (
-      <Fragment>
-        aaaaa
-      </Fragment>
-    )
+    return <CoreLayout>aaaaa</CoreLayout>
   }
 }
 
