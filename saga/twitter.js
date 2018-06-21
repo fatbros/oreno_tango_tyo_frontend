@@ -1,25 +1,15 @@
-import axios from 'axios'
 import Router from 'next/router'
 import { take, call, put } from 'redux-saga/effects'
 
 import { TWITTER } from '../constants/twitter'
-
 import { setRequestToken, setAccessToken } from '../actions/twitter'
-
-const getRequestTokenToAPI = async () => {
-  try {
-    const res = await axios.post('/api/v1/auth/twitter_request_tokenaa')
-    return res.data
-  } catch (err) {
-    throw err
-  }
-}
+import * as api from './api'
 
 export function* getRequestToken() {
   while (true) {
     try {
       yield take(TWITTER.GET_REQUEST_TOKEN)
-      const requestToken = yield call(getRequestTokenToAPI)
+      const requestToken = yield call(api.getRequestTokenToAPI)
 
       yield put(setRequestToken(requestToken))
       window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${requestToken}`
@@ -30,20 +20,14 @@ export function* getRequestToken() {
   }
 }
 
-const getAccessTokenToAPI = async params => {
-  try {
-    const res = await axios.post('/api/v1/auth/twitter_access_token', params)
-    return res.data
-  } catch (err) {
-    throw err
-  }
-}
-
 export function* getAccessToken() {
   while (true) {
     try {
       const takeAction = yield take(TWITTER.GET_ACCESS_TOKEN)
-      const accessToken = yield call(getAccessTokenToAPI, takeAction.payload)
+      const accessToken = yield call(
+        api.getAccessTokenToAPI,
+        takeAction.payload
+      )
       yield put(setAccessToken(accessToken))
       Router.push('/')
     } catch (err) {

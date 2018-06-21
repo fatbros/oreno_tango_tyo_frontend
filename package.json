@@ -53,13 +53,17 @@
     "eslint-plugin-react": "^7.8.2",
     "eslint-plugin-standard": "^3.1.0",
     "jest": "^23.1.0",
+    "jest-environment-jsdom": "^23.1.0",
+    "jest-environment-jsdom-global": "^1.1.0",
     "nodemon": "^1.17.5",
     "prettier": "^1.12.1",
     "prettier-eslint": "^8.8.1",
     "prettier-eslint-cli": "^4.7.1",
+    "redux-saga-test-plan": "^3.7.0",
     "sinon": "^6.0.0"
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "<rootDir>/setupTests.js"
+    "setupTestFrameworkScriptFile": "<rootDir>/setupTests.js",
+    "testEnvironment": "jest-environment-jsdom-global"
   }
 }

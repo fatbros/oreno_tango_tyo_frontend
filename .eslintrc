@@ -15,5 +15,8 @@
   },
   "env": {
     "jest": true
+  },
+  "globals": {
+    "jsdom": false
   }
 }
