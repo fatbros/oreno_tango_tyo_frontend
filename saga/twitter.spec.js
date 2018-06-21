@@ -3,6 +3,7 @@ import { expectSaga } from 'redux-saga-test-plan'
 import * as twitterSaga from './twitter'
 import * as api from './api'
 import * as actions from '../actions/twitter'
+import Router from 'next/router'
 
 describe('Twitter SagaTask', () => {
   describe('SagaTask:getRequestToken', () => {
@@ -25,6 +26,29 @@ describe('Twitter SagaTask', () => {
         .run()
 
       expect(window.location.href).toBe(authenticateUrl)
+    })
+  })
+
+  describe('SagaTask:getAccessToken', () => {
+    it('accessToken正常取得', async () => {
+      const accessToken = {
+        oauth_token: 'ccc',
+        oauth_token_secret: 'ddd'
+      }
+
+      Router.push = sinon.spy()
+
+      sinon.stub(api, 'getAccessTokenToAPI').callsFake(() => {
+        return accessToken
+      })
+
+      await expectSaga(twitterSaga.getAccessToken)
+        .put(actions.setAccessToken(accessToken))
+        .dispatch(actions.getAccessToken())
+        .run()
+
+      expect(Router.push.callCount).toBe(1)
+      expect(Router.push.firstCall.args[0]).toBe('/')
     })
   })
 })
