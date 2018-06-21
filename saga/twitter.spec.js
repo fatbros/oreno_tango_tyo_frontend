@@ -7,7 +7,7 @@ import Router from 'next/router'
 
 describe('Twitter SagaTask', () => {
   describe('SagaTask:getRequestToken', () => {
-    it('requestToken正常取得', async () => {
+    it('requestTokenが正常に取得されるべき', async () => {
       const requestToken = {
         oauth_token: 'aaa',
         oauth_token_secret: 'bbb'
@@ -30,7 +30,7 @@ describe('Twitter SagaTask', () => {
   })
 
   describe('SagaTask:getAccessToken', () => {
-    it('accessToken正常取得', async () => {
+    it('accessTokenが正常に取得されるべき', async () => {
       const accessToken = {
         oauth_token: 'ccc',
         oauth_token_secret: 'ddd'
