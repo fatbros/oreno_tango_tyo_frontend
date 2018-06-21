@@ -5,6 +5,16 @@ import { TWITTER } from '../constants/twitter'
 import { setRequestToken, setAccessToken } from '../actions/twitter'
 import * as api from './api'
 
+const wrapLocationHref = url => {
+  if (process.env.NODE_ENV === 'test') {
+    jsdom.reconfigure({
+      url
+    })
+  } else {
+    window.location.href = url
+  }
+}
+
 export function* getRequestToken() {
   while (true) {
     try {
@@ -12,7 +22,9 @@ export function* getRequestToken() {
       const requestToken = yield call(api.getRequestTokenToAPI)
 
       yield put(setRequestToken(requestToken))
-      window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${requestToken}`
+      wrapLocationHref(
+        `https://api.twitter.com/oauth/authenticate?oauth_token=${requestToken}`
+      )
     } catch (err) {
       // 通信失敗
       console.warn(err)

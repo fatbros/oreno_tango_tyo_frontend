@@ -6,26 +6,25 @@ import * as actions from '../actions/twitter'
 
 describe('Twitter SagaTask', () => {
   describe('SagaTask:getRequestToken', () => {
-    it('requestToken正常取得', () => {
+    it('requestToken正常取得', async () => {
       const requestToken = {
         oauth_token: 'aaa',
         oauth_token_secret: 'bbb'
       }
 
       const encodedRequestToken = encodeURI(requestToken)
-
-      jsdom.reconfigure({
-        url: `https://api.twitter.com/oauth/authenticate?oauth_token=${encodedRequestToken}`
-      })
+      const authenticateUrl = `https://api.twitter.com/oauth/authenticate?oauth_token=${encodedRequestToken}`
 
       sinon.stub(api, 'getRequestTokenToAPI').callsFake(() => {
         return encodedRequestToken
       })
 
-      return expectSaga(twitterSaga.getRequestToken)
+      await expectSaga(twitterSaga.getRequestToken)
         .put(actions.setRequestToken(encodedRequestToken))
         .dispatch(actions.getRequestToken())
         .run()
+
+      expect(window.location.href).toBe(authenticateUrl)
     })
   })
 })
