@@ -1,9 +1,8 @@
 import { TWITTER } from '../constants/twitter'
 
-export const getRequestToken = popup => {
+export const getRequestToken = () => {
   return {
-    type: TWITTER.GET_REQUEST_TOKEN,
-    payload: popup
+    type: TWITTER.GET_REQUEST_TOKEN
   }
 }
 
