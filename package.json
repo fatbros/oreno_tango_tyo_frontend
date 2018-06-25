@@ -23,7 +23,9 @@
   "dependencies": {
     "@material-ui/core": "^1.2.1",
     "axios": "^0.18.0",
+    "connect-redis": "^3.3.3",
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
     "http-proxy-middleware": "^0.18.0",
     "next": "^6.0.3",
     "next-redux-saga": "^3.0.0-beta.1",
