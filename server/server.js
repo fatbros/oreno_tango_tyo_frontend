@@ -1,19 +1,25 @@
 const express = require('express')
 const next = require('next')
 const proxy = require('http-proxy-middleware')
+const modifyResponse = require('node-http-proxy-json')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
-const filter = function(pathname, req) {
-  return pathname.match('^/api') && req.method === 'POST'
-}
-
-const apiProxy = proxy(filter, {
+const authorizationUrlProxy = proxy('/api/google/authorization_url', {
   target: 'http://python:5000',
-  changeOrigin: true
+  changeOrigin: true,
+  onProxyRes: function(proxyRes, req, res) {
+    modifyResponse(res, proxyRes, body => {
+      try {
+        delete body.state
+        return body
+      } catch (e) {}
+    })
+  }
 })
+
 
 app
   .prepare()
@@ -22,7 +28,7 @@ app
 
     server.use(express.static('public'))
 
-    server.use(apiProxy)
+    server.use(authorizationUrlProxy)
 
     server.get('*', (req, res) => {
       return handle(req, res)

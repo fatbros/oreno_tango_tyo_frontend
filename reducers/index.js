@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
-import twitter from './twitter'
+import google from './google'
 
 export default combineReducers({
-  twitter
+  google
 })

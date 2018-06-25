@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { getAccessToken } from '../../actions/twitter'
+// import { getAccessToken } from '../../actions/twitter'
 
 import CoreLayout from '../../containers/CoreLayout'
 
@@ -19,7 +19,7 @@ class Authorized extends Component {
 
   componentDidMount() {
     const { query, dispatch } = this.props
-    dispatch(getAccessToken(query))
+    // dispatch(getAccessToken(query))
   }
 
   render() {
