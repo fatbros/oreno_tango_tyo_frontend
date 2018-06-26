@@ -4,15 +4,7 @@ import { take, call, put } from 'redux-saga/effects'
 import { GOOGLE } from '../constants/google'
 import * as api from './api'
 
-const wrapLocationHref = url => {
-  if (process.env.NODE_ENV === 'test') {
-    jsdom.reconfigure({
-      url
-    })
-  } else {
-    window.location.href = url
-  }
-}
+import wrapLocationHref from '../functions/wrapLocationHref'
 
 export function* authorizationUrl() {
   while (true) {
@@ -22,7 +14,20 @@ export function* authorizationUrl() {
       wrapLocationHref(res['authorization_url'])
     } catch (err) {
       // 通信失敗
-      console.warn(err)
+      console.warn(err, err.response)
+    }
+  }
+}
+
+export function* sendAuthorizationCallbackUrl() {
+  while (true) {
+    try {
+      yield take(GOOGLE.SEND_AUTHORIZATION_CALLBACK_URL)
+      const res = yield call(api.sendAuthorizationCallbackUrl)
+      console.log(res)
+    } catch (err) {
+      // 通信失敗
+      console.warn(err, err.response)
     }
   }
 }

@@ -10,3 +10,12 @@ export const getAuthorizationUrl = async () => {
     throw err
   }
 }
+
+export const sendAuthorizationCallbackUrl = async callbackUrl => {
+  try {
+    const res = await axios.post('/api/google/credentials')
+    return res.data
+  } catch (err) {
+    throw err
+  }
+}

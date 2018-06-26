@@ -5,3 +5,9 @@ export const getAuthorizationUrl = () => {
     type: GOOGLE.GET_AUTHORIZATION_URL
   }
 }
+
+export const sendAuthorizationCallbackUrl = () => {
+  return {
+    type: GOOGLE.SEND_AUTHORIZATION_CALLBACK_URL
+  }
+}
