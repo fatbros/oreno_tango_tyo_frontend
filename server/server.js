@@ -1,5 +1,5 @@
 const express = require('express')
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser')
 const next = require('next')
 const proxy = require('http-proxy-middleware')
 const modifyResponse = require('node-http-proxy-json')

@@ -7,7 +7,7 @@
     "dev": "nodemon server/server.js -w server/*",
     "build": "next build",
     "start": "next start",
-    "lint": "prettier-eslint --write actions/**/*.js components/**/*.js constants/**/*.js containers/**/*.js pages/**/*.js reducers/**/*.js saga/**/*.js server/*.js store/*.js",
+    "lint": "prettier-eslint --write actions/**/*.js components/**/*.js constants/**/*.js containers/**/*.js pages/**/*.js reducers/**/*.js saga/**/*.js server/*.js store/*.js styles/*.js",
     "test": "jest"
   },
   "repository": {
