@@ -35,19 +35,17 @@ const credentialProxy = proxy('/api/google/credentials', {
     const sessionState = req.session.state
 
     if (query.state === undefined || sessionState === undefined) {
-      res.status(400).send({
+      return res.status(400).send({
         message:
           'invalid session status. Please try login processing from the beginning again'
       })
-      return false
     }
 
     if (query.state !== sessionState) {
-      res.status(400).send({
+      return res.status(400).send({
         message:
           'invalid session status. Please try login processing from the beginning again'
       })
-      return false
     }
 
     const body = new url.URLSearchParams({
@@ -78,10 +76,11 @@ app
         store: new RedisStore({
           host: 'redis',
           port: 6379,
-          resave: false
+          resave: false,
+          ttl: 60 * 30
         }),
         cookie: {
-          maxAge: new Date(Date.now() + 1000 * 60 * 10),
+          maxAge: new Date(Date.now() + 1000 * 60 * 30),
           httpOnly: true
         },
         secret: 'test'

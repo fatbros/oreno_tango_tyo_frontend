@@ -1,6 +1,6 @@
 // import { TWITTER } from '../constants/twitter'
 
-export default function google(state = {}, action) {
+export default function googleReducer(state = {}, action) {
   switch (action.type) {
     // case TWITTER.SET_REQUEST_TOKEN:
     //   return {

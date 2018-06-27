@@ -1,8 +1,10 @@
-// import Router from 'next/router'
+import Router from 'next/router'
 import { take, call, put } from 'redux-saga/effects'
 
 import { GOOGLE } from '../constants/google'
 import * as api from './api'
+
+import { setUserInfo } from '../actions/user'
 
 import wrapLocationHref from '../functions/wrapLocationHref'
 
@@ -24,7 +26,9 @@ export function* sendAuthorizationCallbackUrl() {
     try {
       yield take(GOOGLE.SEND_AUTHORIZATION_CALLBACK_URL)
       const res = yield call(api.sendAuthorizationCallbackUrl)
-      console.log(res)
+
+      yield put(setUserInfo(res))
+      Router.push('/signup')
     } catch (err) {
       // 通信失敗
       console.warn(err, err.response)

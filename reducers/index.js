@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux'
 
-import google from './google'
+import googleReducer from './google'
+import userReducer from './user'
 
 export default combineReducers({
-  google
+  googleReducer,
+  userReducer
 })
