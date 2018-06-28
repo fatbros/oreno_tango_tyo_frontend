@@ -10,6 +10,16 @@ export default function userReducer(state = {}, action) {
         email,
         id
       }
+    case USER.UPDATE_USER_PASSWORD:
+      const password = action.payload
+      return {
+        ...state,
+        password
+      }
+    case USER.DELETE_USER_PASSWORD:
+      let tmp = { ...state }
+      delete tmp.password
+      return tmp
     default:
       return state
   }

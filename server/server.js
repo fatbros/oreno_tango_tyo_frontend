@@ -1,5 +1,4 @@
 const express = require('express')
-const bodyParser = require('body-parser')
 const next = require('next')
 const proxy = require('http-proxy-middleware')
 const modifyResponse = require('node-http-proxy-json')
@@ -62,13 +61,19 @@ const credentialProxy = proxy('/api/google/credentials', {
   }
 })
 
+const passwordProxy = proxy('/api/password', {
+  target: 'http://python:5000',
+  changeOrigin: true,
+  secure: false,
+  onProxyRes: (proxyReq, req, res) => {
+    console.log(req)
+  }
+})
+
 app
   .prepare()
   .then(() => {
     const server = express()
-
-    server.use(bodyParser.urlencoded({ extended: true }))
-    server.use(bodyParser.json())
 
     server.use(
       session({
@@ -91,6 +96,7 @@ app
 
     server.use(authorizationUrlProxy)
     server.use(credentialProxy)
+    server.use(passwordProxy)
 
     server.get('*', (req, res) => {
       return handle(req, res)
