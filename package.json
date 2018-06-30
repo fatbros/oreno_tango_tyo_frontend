@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "prettier-eslint --write actions/**/*.js components/**/*.js constants/**/*.js containers/**/*.js pages/**/*.js reducers/**/*.js saga/**/*.js server/*.js store/*.js styles/*.js",
-    "test": "jest"
+    "test": "NODE_ENV=test jest"
   },
   "repository": {
     "type": "git",
@@ -69,6 +69,7 @@
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/setupTests.js",
-    "testEnvironment": "jest-environment-jsdom-global"
+    "testEnvironment": "jest-environment-jsdom-global",
+    "modulePathIgnorePatterns": ["<rootDir>/.next/", "<rootDir>/node_modules/"]
   }
 }
