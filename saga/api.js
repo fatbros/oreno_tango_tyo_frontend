@@ -14,7 +14,7 @@ export const getAuthorizationUrl = async () => {
   }
 }
 
-export const sendAuthorizationCallbackUrl = async callbackUrl => {
+export const sendAuthorizationCallbackUrl = async () => {
   try {
     const res = await _ax.post('/api/google/credentials')
     return res.data
