@@ -2,7 +2,7 @@ import { Fragment, Component } from 'react'
 import { connect } from 'react-redux'
 
 import Header from '../components/Header'
-import { getRequestToken } from '../actions/twitter'
+import { getAuthorizationUrl } from '../actions/google'
 
 class CoreLayout extends Component {
   render() {
@@ -21,7 +21,7 @@ class CoreLayout extends Component {
 
 const mapDispatchToProps = dispatch => ({
   loginBtnClick: () => {
-    dispatch(getRequestToken())
+    dispatch(getAuthorizationUrl())
   }
 })
 

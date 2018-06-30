@@ -7,8 +7,8 @@
     "dev": "nodemon server/server.js -w server/*",
     "build": "next build",
     "start": "next start",
-    "lint": "prettier-eslint --write actions/**/*.js components/**/*.js constants/**/*.js containers/**/*.js pages/**/*.js reducers/**/*.js saga/**/*.js server/*.js store/*.js",
-    "test": "jest"
+    "lint": "prettier-eslint --write actions/**/*.js components/**/*.js constants/**/*.js containers/**/*.js pages/**/*.js reducers/**/*.js saga/**/*.js server/*.js store/*.js styles/*.js",
+    "test": "NODE_ENV=test jest"
   },
   "repository": {
     "type": "git",
@@ -23,17 +23,22 @@
   "dependencies": {
     "@material-ui/core": "^1.2.1",
     "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "connect-redis": "^3.3.3",
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
     "http-proxy-middleware": "^0.18.0",
     "next": "^6.0.3",
     "next-redux-saga": "^3.0.0-beta.1",
     "next-redux-wrapper": "^2.0.0-beta.6",
+    "node-http-proxy-json": "^0.1.6",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.2",
-    "redux-saga": "^0.16.0"
+    "redux-saga": "^0.16.0",
+    "reselect": "^3.0.1"
   },
   "devDependencies": {
     "babel-jest": "^23.0.1",
@@ -64,6 +69,7 @@
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/setupTests.js",
-    "testEnvironment": "jest-environment-jsdom-global"
+    "testEnvironment": "jest-environment-jsdom-global",
+    "modulePathIgnorePatterns": ["<rootDir>/.next/", "<rootDir>/node_modules/"]
   }
 }

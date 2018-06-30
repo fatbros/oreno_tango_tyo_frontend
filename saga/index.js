@@ -1,8 +1,10 @@
 import { fork } from 'redux-saga/effects'
 
-import { getRequestToken, getAccessToken } from './twitter'
+import { authorizationUrl, sendAuthorizationCallbackUrl } from './google'
+import { postSignup } from './signup'
 
 export default function* rootSaga() {
-  yield fork(getRequestToken)
-  yield fork(getAccessToken)
+  yield fork(authorizationUrl)
+  yield fork(sendAuthorizationCallbackUrl)
+  yield fork(postSignup)
 }
