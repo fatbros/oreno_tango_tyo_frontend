@@ -16,7 +16,7 @@ class Signup extends Component {
       // throw new Error('aaaaa')
       ctx.store.dispatch({
         type: 'SET_USER_INFO',
-        payload: { email: 'aaa@gmail.com', objectid: '5b3495b8f1209f00ea2b5162' }
+        payload: { email: 'aaa@gmail.com' }
       })
     }
 

@@ -25,11 +25,9 @@ export const sendAuthorizationCallbackUrl = async callbackUrl => {
 
 export const postSignup = async userInfo => {
   try {
-    const { password, objectid } = userInfo
-    console.log(password, objectid)
+    const { password } = userInfo
     const res = await _ax.post('/api/password', {
-      password,
-      objectid
+      password
     })
     return res.data
   } catch (err) {

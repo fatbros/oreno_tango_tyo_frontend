@@ -1,89 +1,41 @@
 const express = require('express')
 const next = require('next')
-const proxy = require('http-proxy-middleware')
-const modifyResponse = require('node-http-proxy-json')
+
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
-const url = require('url')
+const bodyParser = require('body-parser')
+
+const authorizationUrlProxy = require('./proxy/authorization_url')
+const credentialProxy = require('./proxy/credentials')
+const passwordProxy = require('./proxy/password')
+
+const sessionStore = new RedisStore({
+  host: 'redis',
+  port: 6379,
+  resave: false,
+  ttl: 60 * 30
+})
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
-
-const authorizationUrlProxy = proxy('/api/google/authorization_url', {
-  target: 'http://python:5000',
-  changeOrigin: true,
-  onProxyRes: (proxyRes, req, res) => {
-    modifyResponse(res, proxyRes, body => {
-      try {
-        req.session.state = body.state
-
-        delete body.state
-        return body
-      } catch (e) {}
-    })
-  }
-})
-
-const credentialProxy = proxy('/api/google/credentials', {
-  target: 'http://python:5000',
-  changeOrigin: true,
-  onProxyReq: (proxyReq, req, res) => {
-    const referer = req.headers.referer || ''
-    const { query } = url.parse(referer, true)
-    const sessionState = req.session.state
-
-    if (query.state === undefined || sessionState === undefined) {
-      return res.status(400).send({
-        message:
-          'invalid session status. Please try login processing from the beginning again'
-      })
-    }
-
-    if (query.state !== sessionState) {
-      return res.status(400).send({
-        message:
-          'invalid session status. Please try login processing from the beginning again'
-      })
-    }
-
-    const body = new url.URLSearchParams({
-      callback_url: referer,
-      state: sessionState
-    }).toString()
-
-    // Update header
-    proxyReq.setHeader('content-type', 'application/x-www-form-urlencoded')
-    proxyReq.setHeader('content-length', body.length)
-
-    proxyReq.write(body)
-    proxyReq.end()
-  }
-})
-
-const passwordProxy = proxy('/api/password', {
-  target: 'http://python:5000',
-  changeOrigin: true,
-  secure: false,
-  onProxyRes: (proxyReq, req, res) => {
-    console.log(req)
-  }
-})
 
 app
   .prepare()
   .then(() => {
     const server = express()
 
+    server.use(bodyParser.json())
+    server.use(
+      bodyParser.urlencoded({
+        extended: true
+      })
+    )
+
     server.use(
       session({
         key: 'dev.web',
-        store: new RedisStore({
-          host: 'redis',
-          port: 6379,
-          resave: false,
-          ttl: 60 * 30
-        }),
+        store: sessionStore,
         cookie: {
           maxAge: new Date(Date.now() + 1000 * 60 * 30),
           httpOnly: true
@@ -95,7 +47,7 @@ app
     server.use(express.static('public'))
 
     server.use(authorizationUrlProxy)
-    server.use(credentialProxy)
+    server.use(credentialProxy(sessionStore))
     server.use(passwordProxy)
 
     server.get('*', (req, res) => {

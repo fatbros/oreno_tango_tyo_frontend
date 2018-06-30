@@ -3,12 +3,10 @@ import { USER } from '../constants/user'
 export default function userReducer(state = {}, action) {
   switch (action.type) {
     case USER.SET_USER_INFO:
-      const { objectid, email, id } = action.payload
+      const { email } = action.payload
       return {
         ...state,
-        objectid,
-        email,
-        id
+        email
       }
     case USER.UPDATE_USER_PASSWORD:
       const password = action.payload
