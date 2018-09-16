@@ -2,19 +2,11 @@ const express = require('express')
 const next = require('next')
 
 const session = require('express-session')
-const RedisStore = require('connect-redis')(session)
 const bodyParser = require('body-parser')
 
 const authorizationUrlProxy = require('./proxy/authorization_url')
 const credentialProxy = require('./proxy/credentials')
 const passwordProxy = require('./proxy/password')
-
-const sessionStore = new RedisStore({
-  host: 'redis',
-  port: 6379,
-  resave: false,
-  ttl: 60 * 30
-})
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -34,21 +26,25 @@ app
 
     server.use(
       session({
-        key: 'dev.web',
-        store: sessionStore,
+        secret: 'keyboard cat',
+        resave: false,
+        saveUninitialized: false,
         cookie: {
-          maxAge: new Date(Date.now() + 1000 * 60 * 30),
-          httpOnly: true
-        },
-        secret: 'test'
+          maxAge: 30 * 60 * 1000
+        }
       })
     )
 
     server.use(express.static('public'))
 
     server.use(authorizationUrlProxy)
-    server.use(credentialProxy(sessionStore))
+    server.use(credentialProxy)
     server.use(passwordProxy)
+
+    server.get('logout', (req, res) => {
+      req.session.destroy()
+      res.redirect('/')
+    })
 
     server.get('*', (req, res) => {
       return handle(req, res)
