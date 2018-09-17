@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button'
 
 import withRoot from '../styles/withRoot'
 
-// import { postLogin } from '../actions/signup'
+import { postLogin } from '../actions/login'
 
 const styles = theme => ({
   root: {
@@ -93,8 +93,7 @@ class Login extends Component {
 
 const mapDispatchToProps = dispatch => ({
   postLogin: (password, email) => {
-    console.log(password, email)
-    // dispatch(postLogin(password))
+    dispatch(postLogin({ password, email }))
   }
 })
 
