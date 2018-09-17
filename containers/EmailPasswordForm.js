@@ -10,11 +10,7 @@ import { userInfoSelector } from '../selectors/user'
 
 import withRoot from '../styles/withRoot'
 
-import {
-  updateUserPassword,
-  deleteUserPassword,
-  postSignup
-} from '../actions/user'
+import { putSignup } from '../actions/signup'
 
 const styles = theme => ({
   root: {
@@ -30,13 +26,15 @@ const styles = theme => ({
 })
 
 class Signup extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      password: ''
+    }
+  }
   render() {
-    const {
-      classes,
-      updateUserPassword,
-      deleteUserPassword,
-      postSignup
-    } = this.props
+    const { classes, putSignup } = this.props
 
     return (
       <form className={classes.root}>
@@ -65,7 +63,9 @@ class Signup extends Component {
                 margin="normal"
                 className={classes.textField}
                 onChange={e => {
-                  updateUserPassword(e.target.value)
+                  this.setState({
+                    password: e.target.value
+                  })
                 }}
               />
             </Grid>
@@ -77,8 +77,7 @@ class Signup extends Component {
                 variant="contained"
                 color="primary"
                 onClick={e => {
-                  // deleteUserPassword()
-                  postSignup()
+                  putSignup(this.state.password)
                 }}>
                 登録する
               </Button>
@@ -95,14 +94,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  updateUserPassword: password => {
-    dispatch(updateUserPassword(password))
-  },
-  deleteUserPassword: () => {
-    dispatch(deleteUserPassword())
-  },
-  postSignup: () => {
-    dispatch(postSignup())
+  putSignup: password => {
+    dispatch(putSignup(password))
   }
 })
 

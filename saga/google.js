@@ -3,6 +3,7 @@ import { take, call, put } from 'redux-saga/effects'
 
 import { GOOGLE } from '../constants/google'
 import * as api from './api'
+import { setJwtToken } from './storage'
 
 import { setUserInfo } from '../actions/user'
 
@@ -26,6 +27,8 @@ export function* sendAuthorizationCallbackUrl() {
     try {
       yield take(GOOGLE.SEND_AUTHORIZATION_CALLBACK_URL)
       const res = yield call(api.sendAuthorizationCallbackUrl)
+
+      setJwtToken(res['jwt_token'])
 
       yield put(setUserInfo(res))
       Router.push('/signup')

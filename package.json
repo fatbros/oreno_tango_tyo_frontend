@@ -24,7 +24,6 @@
     "@material-ui/core": "^1.2.1",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
-    "connect-redis": "^3.3.3",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "http-proxy-middleware": "^0.18.0",
@@ -70,6 +69,9 @@
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/setupTests.js",
     "testEnvironment": "jest-environment-jsdom-global",
-    "modulePathIgnorePatterns": ["<rootDir>/.next/", "<rootDir>/node_modules/"]
+    "modulePathIgnorePatterns": [
+      "<rootDir>/.next/",
+      "<rootDir>/node_modules/"
+    ]
   }
 }

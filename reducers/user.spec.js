@@ -12,19 +12,4 @@ describe('user reducer', () => {
 
     expect(state).toEqual({ email })
   })
-
-  it('passwordがstateに挿入されるべき', () => {
-    const password = 'abcdefg'
-    const state = reducer(undefined, actions.updateUserPassword(password))
-
-    expect(state).toEqual({ password })
-  })
-
-  it('passwordがstateから削除されるべき', () => {
-    const password = 'abcdefg'
-    const state = reducer(undefined, actions.updateUserPassword(password))
-    const deletedState = reducer(state, actions.deleteUserPassword())
-
-    expect(deletedState).toEqual({})
-  })
 })

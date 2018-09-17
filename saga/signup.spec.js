@@ -9,15 +9,15 @@ import Router from 'next/router'
 import { userInfoSelector } from '../selectors/user'
 
 describe('Signup SagaTask', () => {
-  describe('SagaTask:postSignup', () => {
+  describe('SagaTask:putSignup', () => {
     it('passwordが正常にpostされるべき', async () => {
       Router.push = sinon.spy()
 
-      sinon.stub(api, 'postSignup').callsFake(() => {
+      sinon.stub(api, 'putSignup').callsFake(() => {
         return {}
       })
 
-      await expectSaga(signupSaga.postSignup)
+      await expectSaga(signupSaga.putSignup)
         .provide({
           select({ selector }, next) {
             if (selector === userInfoSelector) {
@@ -27,7 +27,7 @@ describe('Signup SagaTask', () => {
             }
           }
         })
-        .dispatch(actions.postSignup())
+        .dispatch(actions.putSignup())
         .run()
 
       expect(Router.push.callCount).toBe(1)

@@ -1,19 +1,16 @@
 import Router from 'next/router'
 
-import { take, call, select } from 'redux-saga/effects'
+import { take, call } from 'redux-saga/effects'
 
 import { SIGNUP } from '../constants/signup'
 import * as api from './api'
 
-import { userInfoSelector } from '../selectors/user'
-
-export function* postSignup() {
+export function* putSignup() {
   while (true) {
     try {
-      yield take(SIGNUP.POST_SIGNUP)
-      const userInfo = yield select(userInfoSelector)
+      const { payload } = yield take(SIGNUP.POST_SIGNUP)
 
-      yield call(api.postSignup, userInfo)
+      yield call(api.putSignup, payload)
       Router.push('/')
     } catch (err) {
       // 通信失敗
