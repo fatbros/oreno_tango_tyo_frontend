@@ -6,11 +6,9 @@ import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 
-import { userInfoSelector } from '../selectors/user'
-
 import withRoot from '../styles/withRoot'
 
-import { putSignup } from '../actions/signup'
+// import { postLogin } from '../actions/signup'
 
 const styles = theme => ({
   root: {
@@ -25,16 +23,17 @@ const styles = theme => ({
   }
 })
 
-class Signup extends Component {
+class Login extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
+      email: '',
       password: ''
     }
   }
   render() {
-    const { classes, putSignup } = this.props
+    const { classes, postLogin } = this.props
 
     return (
       <form className={classes.root}>
@@ -47,9 +46,12 @@ class Signup extends Component {
                 type="email"
                 autoComplete="current-email"
                 margin="normal"
-                defaultValue={this.props.userInfo.email}
                 className={classes.textField}
-                disabled
+                onChange={e => {
+                  this.setState({
+                    email: e.target.value
+                  })
+                }}
               />
             </Grid>
           </Grid>
@@ -77,9 +79,9 @@ class Signup extends Component {
                 variant="contained"
                 color="primary"
                 onClick={e => {
-                  putSignup(this.state.password)
+                  postLogin(this.state.password, this.state.email)
                 }}>
-                登録する
+                ログインする
               </Button>
             </Grid>
           </Grid>
@@ -89,21 +91,18 @@ class Signup extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  userInfo: userInfoSelector(state)
-})
-
 const mapDispatchToProps = dispatch => ({
-  putSignup: password => {
-    dispatch(putSignup(password))
+  postLogin: (password, email) => {
+    console.log(password, email)
+    // dispatch(postLogin(password))
   }
 })
 
 export default withRoot(
   withStyles(styles)(
     connect(
-      mapStateToProps,
+      null,
       mapDispatchToProps
-    )(Signup)
+    )(Login)
   )
 )

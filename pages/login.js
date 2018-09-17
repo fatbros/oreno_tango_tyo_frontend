@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import CoreLayout from '../containers/CoreLayout'
-import EmailDisabledForm from '../containers/EmailDisabledForm'
+import Form from '../containers/Form'
 
 class Login extends Component {
   render() {
     return (
       <CoreLayout>
-        <EmailDisabledForm />
+        <Form />
       </CoreLayout>
     )
   }
