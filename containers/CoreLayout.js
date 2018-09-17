@@ -6,12 +6,12 @@ import { getAuthorizationUrl } from '../actions/google'
 
 class CoreLayout extends Component {
   render() {
-    const { children, loginBtnClick } = this.props
+    const { children, singupHandler } = this.props
 
     return (
       <div className="core-layout">
         <Fragment>
-          <Header loginBtnClick={loginBtnClick} />
+          <Header clickHandler={singupHandler} />
           <div>{children}</div>
         </Fragment>
       </div>
@@ -20,7 +20,7 @@ class CoreLayout extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  loginBtnClick: () => {
+  singupHandler: () => {
     dispatch(getAuthorizationUrl())
   }
 })
