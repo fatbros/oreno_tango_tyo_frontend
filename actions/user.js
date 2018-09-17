@@ -6,9 +6,3 @@ export const setUserInfo = payload => {
     payload
   }
 }
-
-export const postSignup = () => {
-  return {
-    type: USER.POST_SIGNUP
-  }
-}

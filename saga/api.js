@@ -1,3 +1,4 @@
+import { getJwtToken } from './storage'
 import axios from 'axios'
 const _ax = axios.create({
   timeout: 3000
@@ -23,11 +24,12 @@ export const sendAuthorizationCallbackUrl = async () => {
   }
 }
 
-export const postSignup = async userInfo => {
+export const postSignup = async password => {
   try {
-    const { password } = userInfo
-    const res = await _ax.post('/api/password', {
-      password
+    const jwtToken = getJwtToken()
+    const res = await _ax.put('/api/password', {
+      password,
+      jwt_token: jwtToken
     })
     return res.data
   } catch (err) {

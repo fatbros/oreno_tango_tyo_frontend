@@ -10,7 +10,7 @@ import { userInfoSelector } from '../selectors/user'
 
 import withRoot from '../styles/withRoot'
 
-import { postSignup } from '../actions/user'
+import { postSignup } from '../actions/signup'
 
 const styles = theme => ({
   root: {
@@ -77,7 +77,7 @@ class Signup extends Component {
                 variant="contained"
                 color="primary"
                 onClick={e => {
-                  console.log(this.state)
+                  postSignup(this.state.password)
                 }}>
                 登録する
               </Button>
@@ -94,8 +94,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  postSignup: () => {
-    dispatch(postSignup())
+  postSignup: password => {
+    dispatch(postSignup(password))
   }
 })
 
