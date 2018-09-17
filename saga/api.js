@@ -1,7 +1,7 @@
 import { getJwtToken } from './storage'
 import axios from 'axios'
 const _ax = axios.create({
-  timeout: 3000
+  timeout: 10000
 })
 
 // テストコードでstubする必要があるためAPI通信箇所は別ファイル
@@ -30,6 +30,18 @@ export const putSignup = async password => {
     const res = await _ax.put('/api/password', {
       password,
       jwt_token: jwtToken
+    })
+    return res.data
+  } catch (err) {
+    throw err
+  }
+}
+
+export const postLogin = async ({ password, email }) => {
+  try {
+    const res = await _ax.post('/api/login', {
+      password,
+      email
     })
     return res.data
   } catch (err) {

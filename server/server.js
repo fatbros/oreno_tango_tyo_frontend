@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const authorizationUrlProxy = require('./proxy/authorization_url')
 const credentialProxy = require('./proxy/credentials')
 const passwordProxy = require('./proxy/password')
+const loginProxy = require('./proxy/login')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -40,6 +41,7 @@ app
     server.use(authorizationUrlProxy)
     server.use(credentialProxy)
     server.use(passwordProxy)
+    server.use(loginProxy)
 
     server.get('logout', (req, res) => {
       req.session.destroy()

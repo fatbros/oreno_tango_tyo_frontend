@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import CoreLayout from '../containers/CoreLayout'
-import EmailPasswordForm from '../containers/EmailPasswordForm'
+import EmailDisabledForm from '../containers/EmailDisabledForm'
 
 import { userInfoSelector } from '../selectors/user'
 
@@ -19,7 +19,7 @@ class Signup extends Component {
   render() {
     return (
       <CoreLayout>
-        <EmailPasswordForm />
+        <EmailDisabledForm />
       </CoreLayout>
     )
   }
