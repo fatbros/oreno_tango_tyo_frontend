@@ -4,18 +4,7 @@ import { connect } from 'react-redux'
 import CoreLayout from '../containers/CoreLayout'
 import EmailDisabledForm from '../containers/EmailDisabledForm'
 
-import { userInfoSelector } from '../selectors/user'
-
-class Signup extends Component {
-  static async getInitialProps({ ctx, res }) {
-    const state = ctx.store.getState()
-    const userInfo = userInfoSelector(state)
-
-    return {
-      userInfo
-    }
-  }
-
+class Login extends Component {
   render() {
     return (
       <CoreLayout>
@@ -25,4 +14,4 @@ class Signup extends Component {
   }
 }
 
-export default connect()(Signup)
+export default connect()(Login)
