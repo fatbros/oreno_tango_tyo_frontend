@@ -24,7 +24,7 @@ export const sendAuthorizationCallbackUrl = async () => {
   }
 }
 
-export const postSignup = async password => {
+export const putSignup = async password => {
   try {
     const jwtToken = getJwtToken()
     const res = await _ax.put('/api/password', {
